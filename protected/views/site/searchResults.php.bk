@@ -1,0 +1,97 @@
+<?php $sizeSearch = (isset($dataSearch) && is_array($dataSearch)) ? count($dataSearch) : 0;
+?>
+<div class="margin-top">
+    <p>Search Results: <?php echo $sizeSearch . " ";
+        echo ($sizeSearch > 1) ? "sessions" : "session"; ?></p>
+</div>
+
+<div>
+    <table class="table table-responsive">
+        <thead>
+        <tr>
+            <th>Topic</th>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Active</th>
+            <th>Created Date</th>
+            <th>Last Update</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php if ($sizeSearch > 0): ?>
+            <?php foreach ($dataSearch as $item): ?>
+                <tr>
+                    <td><?php echo $item["idTopic"] ?></td>
+                    <td><?php echo $item["title"] ?></td>
+                    <td><?php echo $item["firstName"] . " " . $item["lastName"] ?></td>
+                    <td><?php echo $item["active"] ?></td>
+                    <td><?php echo date('y.m.d', STRTOTIME($item["dateCreate"])) ?></td>
+                    <td><?php echo date('y.m.d', STRTOTIME($item["lastUpdate"])) ?></td>
+                </tr>
+            <?php endforeach; ?>
+        <?php endif; ?>
+        </tbody>
+    </table>
+</div>
+
+
+    <!-- View  -->
+<?php if ($dataSearch && !is_null($dataSearch)): ?>
+<div class="col-12 margin-top">
+    <div class="portlet-tabs">
+        <?php foreach ($dataSearch as $rowPast): ?>
+        <div class="row-observation row-content">
+            <div class="col-12">
+                <div class="col-8">
+                    <a class="img-avartar">
+                        <?php
+                        if ($rowPast['avatarPath'] != "" && $rowPast['avatarPath'] != null) {
+                            $avatarUserCreateSessionPast = Yii::app()->params['avatarFolderPath'] . '/' . $rowPast['avatarPath'];
+                        } else {
+                            $avatarUserCreateSessionPast = Yii::app()->params['avatarDefault'];
+                        }
+                        ?>
+                        <img src="<?php echo Yii::app()->getBaseUrl() . $avatarUserCreateSessionPast ?>" alt="">
+                <span>
+                    <?php echo CHtml::encode($rowPast['firstName']) . CHtml::encode($rowPast['lastName']) ?>
+                </span>
+                    </a>
+                </div>
+                <div class="col-4 text-align-right">
+                    <span><?php echo date('y.m.d', STRTOTIME($rowPast["lastUpdate"])) ?></span>
+                </div>
+            </div>
+
+            <div class="col-12">
+                <div class="col-8">
+                    <h1 class="txt-title">
+                        <a href="<?php echo Yii::app()->getBaseUrl(); ?>/observation/pastDetail/id/<?php echo $rowPast['idSession'] ?>">
+                            <?php echo CHtml::encode($rowPast['title']) ?>
+                        </a>
+                        <?php if (Yii::app()->user->idUser == $rowPast['idUserCreate']) { ?>
+                            <a href="<?php echo Yii::app()->getBaseUrl(); ?>/sessions/edit/id/<?php echo $rowPast['idSession'] ?>"><i
+                                    class="fa fa-pencil-square-o"></i></a>
+                        <?php } ?>
+                    </h1>
+
+                    <p><?php $txtDes = $rowPast['description'];
+                        if (strlen($txtDes) >= 70) {
+                            echo substr($txtDes, 0, 65) . " ... " . substr($txtDes, -5);
+                        } else echo $txtDes; ?>
+                    </p>
+                    <a href="<?php echo Yii::app()->getBaseUrl(); ?>/observation/pastDetail/id/<?php echo $rowPast['idSession'] ?>">
+                        <span class="circle"></span>
+                        <span class="circle"></span>
+                        <span class="circle"></span>
+                    </a>
+                </div>
+
+                <div class="col-4">
+
+                </div>
+            </div>
+        </div> <!-- # row-observation -->
+        <?php endforeach; ?>
+    </div>
+</div>
+<?php endif; ?>

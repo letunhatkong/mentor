@@ -1,0 +1,64 @@
+.container {
+  margin-right: auto;
+  margin-left: auto;
+  padding:0 24px;
+}
+
+.container-admin {
+  overflow: hidden;
+  padding: 0!important;
+}
+.container-admin .mtop {
+  margin-top: 50px;
+}
+@media (max-width: 1200px) {
+  .container {
+   padding:0 24px;
+  }
+  .row-observation { margin: 15px 24px 0;}
+}
+@media (max-width: 992px) {
+  .container {
+    padding:0 24px;
+  }
+   .row-observation { margin: 15px 24px 0;}
+}
+@media (max-width: 768px) {
+  .container {
+    padding:0 12px;
+  }
+  .row-observation { margin: 15px 12px 0;}
+  .notificationDrop {
+    width: 100%;
+    min-width: 300px;
+    right: -45px;
+  }
+  .notificationDrop::after {
+      left: auto;
+      right: 50px;
+  }
+}
+@media (max-width: 640px) {
+  .container {
+    padding:0 6px;
+  }
+  .row-observation { margin: 15px 6px 0;}
+}
+@media (max-width: 600px) {
+  .padding-top .col-4, .padding-top .col-8 {width:100%}
+  .m-ctrl-medium.date-picker {width:98%;padding:5px 1%;}
+  .select-option .SumoSelect {width:100%;margin:5px 0;padding:0;float:none}
+  .padding-top .col-8 {margin-top:5px}
+}
+
+/**** rick content ****/
+
+/****** footer ***/
+@media (max-width: 640px) {
+    .row-observation {}
+}
+@media (max-width: 460px) {
+    #drop_zone_video_upload{
+        line-height: 60px;
+    }
+}
